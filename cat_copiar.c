@@ -7,11 +7,13 @@ extern int errno;
 
 int main(){
 	
-	char path[] = "/home/mapache/codigos/SO/";
-//	char buffer[];  // a tratar
+	//char path[] = "/home/mapache/codigos/SO/";
+	char path[] = "/home/diana/Documents/Codigos/SO/";
 	char aux[100];
 	char destino[100];
 	char archivo[20];
+	char* buffer;
+	size_t n = 16;
 
 	int op,file;
 
@@ -25,11 +27,25 @@ int main(){
 	strcat(aux,"/");
 	strcat(aux,archivo);
 
+	puts(buffer);
+
 	switch(op){
 		case 1: 
 			{
 			//abrimos el archivo
-			file = open(aux, 
+			file = open(aux,O_RDONLY); 
+			if(file == -1){
+				printf("Error file : %d \n",errno);
+				perror("Programa");
+			}
+			if(read(file,buffer,n) <= 0){
+				printf("Error al leer :%d\n",errno);
+				if(read(file,buffer,n) == -1){
+					puts("Fue igual a -1");
+				}
+			}
+
+			puts(buffer);
 			break;
 			}
 		case 2:
